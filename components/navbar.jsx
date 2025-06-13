@@ -14,6 +14,10 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
+      // Close mobile menu on scroll
+      if (mobileMenuOpen) {
+        setMobileMenuOpen(false)
+      }
 
       // Update active section based on scroll position
       const sections = ["home", "about", "projects", "contact"]
@@ -93,14 +97,18 @@ export default function Navbar() {
       initial="hidden"
       animate="visible"
       variants={navVariants}
-      className={`sticky top-0 z-40 w-full backdrop-blur-md transition-all duration-300 ${
-        scrolled ? "bg-black/80 dark:bg-black/80 shadow-lg" : "bg-transparent dark:bg-transparent"
+      className={`fixed top-0 z-40 w-full backdrop-blur-xl transition-all duration-500 ease-in-out ${
+        scrolled 
+          ? "bg-white/20 dark:bg-black/20 shadow-lg h-12 mt-4" 
+          : "bg-transparent dark:bg-transparent h-16 w-full"
       }`}
     >
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className={`container mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 h-full transition-all duration-500 ease-in-out ${
+        scrolled ? "scale-95" : "scale-100"
+      }`}>
         <motion.div variants={itemVariants} className="flex items-center gap-2">
           <a href="#" className="text-xl font-bold text-primary">
-            Portfolio
+            Adi Warsa
           </a>
         </motion.div>
 
@@ -155,24 +163,30 @@ export default function Navbar() {
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
-          className="container md:hidden py-4 bg-black/95 dark:bg-black/95"
+          className={`fixed backdrop-blur-xl bg-white/20 dark:bg-black/20 shadow-lg transition-all duration-500 ease-in-out ${
+            scrolled 
+              ? "top-12 mt-4" 
+              : "top-16"
+          }`}
         >
-          <nav className="flex flex-col space-y-4">
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  activeSection === item.href.replace("#", "") ? "text-primary" : ""
-                }`}
-                onClick={(e) => handleNavClick(e, item.href)}
-              >
-                {item.name}
-              </motion.a>
-            ))}
+          <nav className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col space-y-4">
+              {navItems.map((item, index) => (
+                <motion.a
+                  key={item.name}
+                  href={item.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`text-sm font-medium transition-colors hover:text-primary px-4 py-2 rounded-lg hover:bg-white/10 ${
+                    activeSection === item.href.replace("#", "") ? "text-primary bg-white/10" : ""
+                  }`}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                >
+                  {item.name}
+                </motion.a>
+              ))}
+            </div>
           </nav>
         </motion.div>
       )}

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Github, Linkedin, Twitter } from "lucide-react"
+import { ArrowRight, Github, Linkedin, Instagram } from "lucide-react"
 import LiquidEmoji from "./liquid-emoji"
 import GlitchImage from "./glitch-image"
 
@@ -96,26 +96,29 @@ export default function Hero() {
               </motion.p>
             </div>
             <motion.p variants={itemVariants} className="max-w-[600px] text-muted-foreground md:text-xl">
-              I build modern, responsive web applications with cutting-edge technologies. Let's create something amazing
-              together.
+              Full-stack developer passionate about building modern web applications. I specialize in Laravel and Livewire, 
+              creating seamless experiences that combine robust backend solutions with elegant frontend interfaces. 
+              Let's build something amazing together.
             </motion.p>
             <motion.div variants={itemVariants} className="flex flex-col gap-2 min-[400px]:flex-row">
-              <Button
-                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                View Projects <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button variant="outline" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                Download Resume
-              </Button>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button variant="outline" className="group">
+                  Download Resume
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </motion.div>
             </motion.div>
             <motion.div variants={socialVariants} className="flex gap-4 mt-4">
-              {[Github, Linkedin, Twitter].map((Icon, index) => (
+              {[
+                { Icon: Github, href: "https://github.com/adiwarsa" },
+                { Icon: Linkedin, href: "https://linkedin.com/in/adiwarsa/" },
+                { Icon: Instagram, href: "https://instagram.com/adiwarsaa" }
+              ].map(({ Icon, href }, index) => (
                 <motion.a
                   key={index}
-                  href="#"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={Icon.name}
                   className="text-muted-foreground hover:text-primary transition-colors"
                   variants={socialItemVariants}
@@ -129,7 +132,7 @@ export default function Hero() {
           <motion.div variants={imageVariants} className="flex items-center justify-center">
             <div className="relative aspect-square w-[280px] h-[280px] md:w-[400px] md:h-[400px]">
               <GlitchImage
-                src="/placeholder.svg?height=400&width=400"
+                src="/profile.jpg"
                 alt="Profile"
                 className="rounded-2xl border-2 border-primary/20 bg-muted"
                 aspectRatio="aspect-square"

@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Github, Linkedin, Mail, Twitter, Heart } from "lucide-react"
+import { Github, Linkedin, Mail, Instagram, Heart } from "lucide-react"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -25,6 +25,13 @@ export default function Footer() {
     },
   }
 
+  const socialLinks = [
+    { icon: Github, label: "GitHub", link: "https://github.com/adiwarsa" },
+    { icon: Instagram, label: "Instagram", link: "https://instagram.com/adiwarsaa" },
+    { icon: Linkedin, label: "LinkedIn", link: "https://linkedin.com/in/adiwarsa/" },
+    { icon: Mail, label: "Email", link: "mailto:adiwarsa03@gmail.com" },
+  ]
+
   return (
     <motion.footer
       initial="hidden"
@@ -36,7 +43,7 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-center gap-6">
           {/* Logo and Tagline */}
           <motion.div variants={itemVariants} className="text-center">
-            <h3 className="text-2xl font-bold text-primary mb-2">Portfolio</h3>
+            <h3 className="text-2xl font-bold text-primary mb-2">Adi Warsa</h3>
             <p className="text-sm text-muted-foreground max-w-md mx-auto">
               Creating digital experiences that blend creativity with technical excellence
             </p>
@@ -44,15 +51,10 @@ export default function Footer() {
 
           {/* Social Links */}
           <motion.div variants={itemVariants} className="flex gap-6">
-            {[
-              { icon: Github, label: "GitHub" },
-              { icon: Twitter, label: "Twitter" },
-              { icon: Linkedin, label: "LinkedIn" },
-              { icon: Mail, label: "Email" },
-            ].map((social, index) => (
+            {socialLinks.map((social, index) => (
               <motion.a
                 key={index}
-                href="#"
+                href={social.link}
                 aria-label={social.label}
                 className="text-muted-foreground hover:text-primary transition-colors"
                 whileHover={{ scale: 1.2, rotate: 5 }}
@@ -70,7 +72,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-center gap-2 text-center">
-            <p className="text-sm text-muted-foreground">© {currentYear} Portfolio. All rights reserved.</p>
+            <p className="text-sm text-muted-foreground">© {currentYear} Adi Warsa. All rights reserved.</p>
             <span className="hidden md:inline text-muted-foreground">•</span>
             <p className="text-sm text-muted-foreground flex items-center gap-1">
               Made with <Heart className="h-3 w-3 text-primary fill-primary" /> by Adi

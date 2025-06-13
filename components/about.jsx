@@ -28,19 +28,29 @@ export default function About() {
   }
 
   const skillCategories = {
-    frontend: [
-      { name: "React.js", level: 90 },
-      { name: "JavaScript", level: 85 },
-      { name: "HTML/CSS", level: 95 },
-      { name: "Tailwind CSS", level: 80 },
-      { name: "Next.js", level: 75 },
-    ],
     backend: [
+      { name: "PHP", level: 95 },
+      { name: "Laravel", level: 90 },
+      { name: "RESTful APIs", level: 90 },
+      { name: "Livewire", level: 85 },
+      { name: "JavaScript", level: 85 },
       { name: "Node.js", level: 80 },
-      { name: "Express", level: 75 },
-      { name: "MongoDB", level: 70 },
-      { name: "SQL", level: 65 },
-      { name: "GraphQL", level: 60 },
+      { name: "Express", level: 80 },
+      { name: "MySQL", level: 85 },
+      { name: "PostgreSQL", level: 80 },
+      { name: "MongoDB", level: 80 },
+      { name: "Git", level: 75 },
+      { name: "Go", level: 60 },
+    ],
+    frontend: [
+      { name: "HTML/CSS", level: 90 },
+      { name: "JavaScript", level: 85 },
+      { name: "Tailwind CSS", level: 80 },
+      { name: "Bootstrap", level: 90 },
+      { name: "Alpine.js", level: 80 },
+      { name: "Vue.js", level: 80 },
+      { name: "React.js", level: 70 },
+      { name: "Next.js", level: 70 },
     ],
   }
 
@@ -64,25 +74,24 @@ export default function About() {
           <motion.div variants={itemVariants} className="space-y-4">
             <h3 className="text-2xl font-bold">Professional Profile</h3>
             <p className="text-muted-foreground">
-              I'm a passionate full-stack developer with over 5 years of experience building web applications. I
-              specialize in creating responsive, user-friendly interfaces with modern JavaScript frameworks and robust
-              backend systems.
+              I'm a passionate full-stack developer with almost 4 years of experience specializing in PHP and Laravel development. 
+              I excel at building robust, scalable web applications using Laravel's powerful ecosystem and modern development practices.
             </p>
             <p className="text-muted-foreground">
-              My approach combines technical expertise with creative problem-solving to deliver solutions that exceed
-              client expectations. I'm constantly learning new technologies and methodologies to stay at the forefront
-              of web development.
+              My expertise includes Laravel Livewire for building dynamic interfaces, creating RESTful APIs, and implementing 
+              efficient database solutions. I'm dedicated to writing clean, maintainable code and staying current with the 
+              latest Laravel features and best practices.
             </p>
           </motion.div>
 
           <motion.div variants={itemVariants} className="space-y-6">
             <h3 className="text-2xl font-bold">Technical Skills</h3>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div>
-                <h4 className="text-lg font-medium mb-3">Frontend Development</h4>
-                <div className="space-y-4">
-                  {skillCategories.frontend.map((skill, index) => (
+                <h4 className="text-lg font-medium mb-4">Backend Development</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {skillCategories.backend.map((skill, index) => (
                     <motion.div
                       key={skill.name}
                       className="space-y-2"
@@ -108,9 +117,9 @@ export default function About() {
               </div>
 
               <div>
-                <h4 className="text-lg font-medium mb-3">Backend Development</h4>
-                <div className="space-y-4">
-                  {skillCategories.backend.map((skill, index) => (
+                <h4 className="text-lg font-medium mb-4">Frontend Development</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {skillCategories.frontend.map((skill, index) => (
                     <motion.div
                       key={skill.name}
                       className="space-y-2"

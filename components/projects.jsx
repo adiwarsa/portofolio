@@ -64,7 +64,7 @@ export default function Projects() {
       image: "/placeholder.svg?height=300&width=500",
       tags: ["React", "Chart.js", "Material UI"],
       demoLink: "#",
-      githubLink: "#",
+      githubLink: "-",
       category: "Dashboard",
     },
     {
@@ -73,7 +73,7 @@ export default function Projects() {
       description: "A weather forecast application with location-based data.",
       image: "/placeholder.svg?height=300&width=500",
       tags: ["React", "API", "Geolocation"],
-      demoLink: "#",
+      demoLink: "-",
       githubLink: "#",
       category: "Tool",
     },
@@ -124,16 +124,15 @@ export default function Projects() {
 
         <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-2 mt-6">
           {categories.map((category) => (
-            <Button
-              key={category}
-              variant={activeFilter === category ? "default" : "outline"}
-              onClick={() => setActiveFilter(category)}
-              className="rounded-full"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {category}
-            </Button>
+            <motion.div key={category} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                variant={activeFilter === category ? "default" : "outline"}
+                onClick={() => setActiveFilter(category)}
+                className="rounded-full"
+              >
+                {category}
+              </Button>
+            </motion.div>
           ))}
         </motion.div>
 
@@ -170,18 +169,22 @@ export default function Projects() {
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                  <Button variant="outline" size="sm" asChild>
-                    <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
-                      <Github className="mr-2 h-4 w-4" />
-                      Code
-                    </a>
-                  </Button>
-                  <Button size="sm" asChild>
-                    <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      Demo
-                    </a>
-                  </Button>
+                  {project.githubLink && project.githubLink !== "-" && (
+                    <Button variant="outline" size="sm" asChild>
+                      <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
+                        <Github className="mr-2 h-4 w-4" />
+                        Code
+                      </a>
+                    </Button>
+                  )}
+                  {project.demoLink && project.demoLink !== "-" && (
+                    <Button size="sm" asChild>
+                      <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="mr-2 h-4 w-4" />
+                        Demo
+                      </a>
+                    </Button>
+                  )}
                 </CardFooter>
               </Card>
             </motion.div>

@@ -3,7 +3,7 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Mail, MapPin, Phone, Calendar, ExternalLink, Github, Linkedin, Twitter } from "lucide-react"
+import { Mail, MapPin, Phone, Calendar, ExternalLink, Github, Linkedin, Instagram } from "lucide-react"
 
 export default function Contact() {
   const ref = useRef(null)
@@ -29,36 +29,18 @@ export default function Contact() {
   }
 
   const contactInfo = [
-    {
-      icon: Mail,
-      title: "Email",
-      value: "hello@example.com",
-      link: "mailto:hello@example.com",
-    },
-    {
-      icon: Phone,
-      title: "Phone",
-      value: "+1 (555) 123-4567",
-      link: "tel:+15551234567",
-    },
-    {
-      icon: MapPin,
-      title: "Location",
-      value: "San Francisco, CA",
-      link: "https://maps.google.com/?q=San+Francisco,+CA",
-    },
-    {
-      icon: Calendar,
-      title: "Availability",
-      value: "Monday - Friday, 9AM - 5PM",
-    },
+    { icon: Mail, label: "Email", value: "adiwarsa03@gmail.com", link: "mailto:adiwarsa03@gmail.com" },
+    { icon: Phone, label: "Phone", value: "+6289 621 791 541", link: "tel:+6289621791541" },
+    { icon: MapPin, label: "Location", value: "Denpasar, Bali, Indonesia", link: "#" },
+    { icon: Github, label: "GitHub", value: "https://github.com/adiwarsa", link: "https://github.com/adiwarsa" },
+    { icon: Linkedin, label: "LinkedIn", value: "https://linkedin.com/in/adiwarsa", link: "https://linkedin.com/in/adiwarsa" },
+    { icon: Instagram, label: "Instagram", value: "https://instagram.com/adiwarsaa", link: "https://instagram.com/adiwarsaa" },
   ]
 
   const socialLinks = [
     { icon: Github, label: "GitHub", link: "https://github.com/adiwarsa" },
     { icon: Linkedin, label: "LinkedIn", link: "https://linkedin.com/in/adiwarsa/" },
-    { icon: Twitter, label: "Twitter", link: "https://twitter.com/" },
-    { icon: ExternalLink, label: "Portfolio", link: "#" },
+    { icon: Instagram, label: "Instagram", link: "https://instagram.com/adiwarsaa" },
   ]
 
   return (
@@ -105,7 +87,7 @@ export default function Contact() {
                         <item.icon className="h-5 w-5 text-primary" />
                       </motion.div>
                       <div>
-                        <p className="font-medium">{item.title}</p>
+                        <p className="font-medium">{item.label}</p>
                         {item.link ? (
                           <a
                             href={item.link}

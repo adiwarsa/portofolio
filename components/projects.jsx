@@ -1,88 +1,77 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ExternalLink, Github } from "lucide-react"
-import GlitchImage from "./glitch-image"
+import { User, Calendar } from "lucide-react"
+import ProjectDetailModal from "./project-detail-modal"
 
 export default function Projects() {
-  const [activeFilter, setActiveFilter] = useState("All")
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-
-  // Different intensity levels for variety
-  const intensityLevels = ["low", "medium", "high", "medium", "low", "high"]
+  const [selectedProject, setSelectedProject] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const projects = [
     {
       id: 1,
-      title: "Personal Blog",
-      description: "A minimalist blog platform built with Next.js and MDX for content management.",
-      image: "/placeholder.svg?height=300&width=500",
-      tags: ["React", "Next.js", "MDX"],
-      demoLink: "#",
-      githubLink: "#",
-      category: "Web App",
+      title: "Siverlent",
+      type: "website",
+      image: "/placeholder.svg?height=200&width=300",
+      author: "Adi Warsa",
+      date: "22 2025",
+      gradient: "from-purple-500 to-pink-500",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "AI/ML"],
+      features: [
+        "Website for a company that provides software solutions for businesses.",
+      ],
+      status: "Active Development",
+      liveUrl: "https://siverlent.id",
+      githubUrl: "#",
     },
     {
       id: 2,
-      title: "Task Manager",
-      description: "A productivity app for managing tasks with drag-and-drop functionality.",
-      image: "/placeholder.svg?height=300&width=500",
-      tags: ["React", "Redux", "Firebase"],
-      demoLink: "#",
-      githubLink: "#",
-      category: "Web App",
+      title: "Undangan Online",
+      type: "website",
+      image: "/placeholder.svg?height=200&width=300",
+      author: "Adi Warsa",
+      date: "22 2025",
+      gradient: "from-yellow-500 to-orange-500",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      technologies: ["React", "JavaScript", "CSS3", "Local Storage", "Web APIs"],
+      features: [
+        "Website for a company that provides online invitation services.",
+      ],
+      status: "Completed & Live",
+      liveUrl: "https://undanganonline.siverlent.id",
+      githubUrl: "#",
     },
     {
       id: 3,
-      title: "Search Engine",
-      description: "A custom search engine with advanced filtering capabilities.",
-      image: "/placeholder.svg?height=300&width=500",
-      tags: ["JavaScript", "API", "Algolia"],
-      demoLink: "#",
-      githubLink: "#",
-      category: "Tool",
+      title: "Softcomp POS",
+      type: "web application",
+      image: "/placeholder.svg?height=200&width=300",
+      author: "Adi Warsa",
+      date: "22 Juni 2025",
+      gradient: "from-blue-500 to-cyan-500",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      technologies: ["Laravel", "Livewire", "PostgreSQL", "Tailwind CSS", "Alpine.js"],
+      features: [
+        "Point of Sale System for a company that provides software solutions for businesses.",
+      ],
+      status: "Completed & Live",
+      liveUrl: "https://softcomp.io",
+      githubUrl: "#",
     },
-    {
-      id: 4,
-      title: "Portfolio Template",
-      description: "A customizable portfolio template for developers and designers.",
-      image: "/placeholder.svg?height=300&width=500",
-      tags: ["React", "Tailwind CSS", "Framer Motion"],
-      demoLink: "#",
-      githubLink: "#",
-      category: "Template",
-    },
-    {
-      id: 5,
-      title: "E-commerce Dashboard",
-      description: "An admin dashboard for managing products, orders, and customers.",
-      image: "/placeholder.svg?height=300&width=500",
-      tags: ["React", "Chart.js", "Material UI"],
-      demoLink: "#",
-      githubLink: "-",
-      category: "Dashboard",
-    },
-    {
-      id: 6,
-      title: "Weather App",
-      description: "A weather forecast application with location-based data.",
-      image: "/placeholder.svg?height=300&width=500",
-      tags: ["React", "API", "Geolocation"],
-      demoLink: "-",
-      githubLink: "#",
-      category: "Tool",
-    },
+    
+    
   ]
-
-  const categories = ["All", "Web App", "Tool", "Template", "Dashboard"]
-
-  const filteredProjects =
-    activeFilter === "All" ? projects : projects.filter((project) => project.category === activeFilter)
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -103,94 +92,98 @@ export default function Projects() {
     },
   }
 
+  const handleProjectClick = (project) => {
+    setSelectedProject(project)
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    setTimeout(() => setSelectedProject(null), 300)
+  }
+
   return (
-    <section id="projects" className="py-16 bg-secondary/30 dark:bg-black/30" ref={ref}>
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        className="container px-4 md:px-6"
-      >
+    <>
+      <section className="py-16" ref={ref} id="projects">
         <motion.div
-          variants={itemVariants}
-          className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="container px-4 md:px-6"
         >
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">My Projects</h2>
-          <div className="h-1 w-20 bg-primary rounded-full"></div>
-          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-            A showcase of my recent work and personal projects
-          </p>
-        </motion.div>
+          <motion.h2
+            variants={itemVariants}
+            className="text-sm font-medium text-muted-foreground tracking-wider uppercase mb-8"
+          >
+            PROJECTS
+          </motion.h2>
 
-        <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-2 mt-6">
-          {categories.map((category) => (
-            <motion.div key={category} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                variant={activeFilter === category ? "default" : "outline"}
-                onClick={() => setActiveFilter(category)}
-                className="rounded-full"
+          <motion.div variants={containerVariants} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                variants={itemVariants}
+                whileHover={{
+                  y: -10,
+                  transition: { type: "spring", stiffness: 300, damping: 10 },
+                }}
               >
-                {category}
-              </Button>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        <motion.div variants={containerVariants} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-8">
-          {filteredProjects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              variants={itemVariants}
-              custom={index}
-              whileHover={{
-                y: -10,
-                transition: { type: "spring", stiffness: 300, damping: 10 },
-              }}
-            >
-              <Card className="overflow-hidden h-full border border-primary/20 bg-white/50 dark:bg-black/50 backdrop-blur-sm">
-                <div className="aspect-video overflow-hidden">
-                  <GlitchImage
-                    src={project.image}
-                    alt={project.title}
-                    intensity={intensityLevels[index % intensityLevels.length]}
-                  />
-                </div>
-                <CardHeader>
-                  <CardTitle>{project.title}</CardTitle>
-                  <CardDescription>{project.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary" className="bg-primary/10 text-primary">
-                        {tag}
-                      </Badge>
-                    ))}
+                <Card className="overflow-hidden bg-card border-border hover:border-primary/20 transition-all duration-300 group">
+                  {/* Project Type Badge */}
+                  <div className="p-4 pb-0">
+                    <Badge variant="secondary" className="text-xs font-medium bg-secondary/50">
+                      {project.type}
+                    </Badge>
                   </div>
-                </CardContent>
-                <CardFooter className="flex justify-between">
-                  {project.githubLink && project.githubLink !== "-" && (
-                    <Button variant="outline" size="sm" asChild>
-                      <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
-                        <Github className="mr-2 h-4 w-4" />
-                        Code
-                      </a>
+
+                  {/* Project Image */}
+                  <CardContent className="p-4">
+                    <div
+                      className={`aspect-video rounded-lg bg-gradient-to-br ${project.gradient} p-4 flex items-center justify-center relative overflow-hidden`}
+                    >
+                      <div className="absolute inset-0 bg-black/20"></div>
+                      <div className="relative z-10 text-white font-bold text-lg">{project.title}</div>
+                      {/* Decorative elements */}
+                      <div className="absolute top-2 right-2 w-4 h-4 bg-white/30 rounded-full"></div>
+                      <div className="absolute bottom-2 left-2 w-6 h-6 bg-white/20 rounded-full"></div>
+                    </div>
+
+                    <h3 className="font-semibold text-lg mt-4 mb-3 group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                      <div className="w-6 h-6 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center">
+                        <User className="w-3 h-3 text-white" />
+                      </div>
+                      <span>{project.author}</span>
+                      <span>•</span>
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        <span>{project.date}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+
+                  <CardFooter className="p-4 pt-0">
+                    <Button
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+                      onClick={() => handleProjectClick(project)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      Details
                     </Button>
-                  )}
-                  {project.demoLink && project.demoLink !== "-" && (
-                    <Button size="sm" asChild>
-                      <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="mr-2 h-4 w-4" />
-                        Demo
-                      </a>
-                    </Button>
-                  )}
-                </CardFooter>
-              </Card>
-            </motion.div>
-          ))}
+                  </CardFooter>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
         </motion.div>
-      </motion.div>
-    </section>
+      </section>
+
+      {/* Project Detail Modal */}
+      <ProjectDetailModal project={selectedProject} isOpen={isModalOpen} onClose={handleCloseModal} />
+    </>
   )
 }

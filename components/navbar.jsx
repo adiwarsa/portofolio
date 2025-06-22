@@ -1,52 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Share2, User, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import ThemeToggle from "./theme-toggle"
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState("home")
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-      // Close mobile menu on scroll
-      if (mobileMenuOpen) {
-        setMobileMenuOpen(false)
-      }
-
-      // Update active section based on scroll position
-      const sections = ["home", "about", "projects", "contact"]
-      const scrollPosition = window.scrollY + 100
-
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const offsetTop = element.offsetTop
-          const offsetHeight = element.offsetHeight
-
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
-          }
-        }
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
-  ]
 
   const navVariants = {
     hidden: { opacity: 0, y: -20 },
@@ -65,84 +26,60 @@ export default function Navbar() {
     visible: { opacity: 1, y: 0 },
   }
 
-  const handleNavClick = (e, href) => {
-    e.preventDefault()
-
-    // Close mobile menu if open
-    if (mobileMenuOpen) {
-      setMobileMenuOpen(false)
-    }
-
-    // Get the target element
-    const targetId = href.replace("#", "")
-    const targetElement = document.getElementById(targetId)
-
-    if (targetElement) {
-      // Smooth scroll to the target
-      window.scrollTo({
-        top: targetElement.offsetTop - 80, // Offset for the navbar height
-        behavior: "smooth",
-      })
-
-      // Update URL without scrolling
-      window.history.pushState(null, "", href)
-
-      // Update active section
-      setActiveSection(targetId)
-    }
-  }
-
   return (
     <motion.header
       initial="hidden"
       animate="visible"
       variants={navVariants}
-      className={`fixed top-0 z-40 w-full backdrop-blur-xl transition-all duration-500 ease-in-out ${
-        scrolled 
-          ? "bg-white/20 dark:bg-black/20 shadow-lg h-12 mt-4" 
-          : "bg-transparent dark:bg-transparent h-16 w-full"
-      }`}
+      className="w-full backdrop-blur-md bg-background/80 border-b border-border"
     >
-      <div className={`container mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 h-full transition-all duration-500 ease-in-out ${
-        scrolled ? "scale-95" : "scale-100"
-      }`}>
-        <motion.div variants={itemVariants} className="flex items-center gap-2">
-          <a href="#" className="text-xl font-bold text-primary">
-            Adi Warsa
-          </a>
+      <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Logo/Profile Section */}
+        <motion.div variants={itemVariants} className="flex items-center gap-3">
+          <div className="relative">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center overflow-hidden">
+              <img src="/profile.jpg" alt="Profile" className="w-full h-full object-cover rounded-full" />
+            </div>
+            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background"></div>
+          </div>
+          <div className="hidden sm:block">
+            <h3 className="font-semibold text-foreground">Adi Warsa</h3>
+            <div className="flex items-center gap-1 text-xs text-green-500">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              Available to Work
+            </div>
+          </div>
         </motion.div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
-            <motion.a
-              key={item.name}
-              href={item.href}
-              variants={itemVariants}
-              className={`text-sm font-medium transition-colors hover:text-primary relative ${
-                activeSection === item.href.replace("#", "") ? "text-primary" : ""
-              }`}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={(e) => handleNavClick(e, item.href)}
-            >
-              {item.name}
-              {activeSection === item.href.replace("#", "") && (
-                <motion.span
-                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
-                  layoutId="activeSection"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
-              )}
-            </motion.a>
-          ))}
+          
+
+          <motion.a
+            variants={itemVariants}
+            href="https://github.com/adiwarsa"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 rounded-lg hover:bg-accent transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Github className="w-4 h-4" />
+          </motion.a>
+
+          <motion.button
+            variants={itemVariants}
+            className="p-2 rounded-lg hover:bg-accent transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Share2 className="w-4 h-4" />
+          </motion.button>
 
           <ThemeToggle />
         </nav>
 
-        {/* Mobile Navigation Toggle and Theme Toggle */}
+        {/* Mobile Navigation Toggle */}
         <div className="flex items-center gap-2 md:hidden">
           <ThemeToggle />
           <Button
@@ -163,29 +100,26 @@ export default function Navbar() {
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
-          className={`fixed backdrop-blur-xl bg-white/20 dark:bg-black/20 shadow-lg transition-all duration-500 ease-in-out ${
-            scrolled 
-              ? "top-12 mt-4" 
-              : "top-16"
-          }`}
+          className="md:hidden py-4 bg-background/95 backdrop-blur-md border-t border-border"
         >
-          <nav className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col space-y-4">
-              {navItems.map((item, index) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`text-sm font-medium transition-colors hover:text-primary px-4 py-2 rounded-lg hover:bg-white/10 ${
-                    activeSection === item.href.replace("#", "") ? "text-primary bg-white/10" : ""
-                  }`}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                >
-                  {item.name}
-                </motion.a>
-              ))}
+          <nav className="container flex flex-col space-y-4">
+            <button className="text-left text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              About
+            </button>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Github className="w-4 h-4" />
+                GitHub
+              </a>
+              <button className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                <Share2 className="w-4 h-4" />
+                Share
+              </button>
             </div>
           </nav>
         </motion.div>

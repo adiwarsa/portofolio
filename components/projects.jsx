@@ -48,7 +48,7 @@ export default function Projects() {
         "Website for a company that provides online invitation services.",
       ],
       status: "Completed & Live",
-      liveUrl: "https://undanganonline.siverlent.id",
+      liveUrl: "https://unol.siverlent.id",
       githubUrl: "#",
     },
     {

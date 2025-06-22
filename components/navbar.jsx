@@ -72,6 +72,17 @@ export default function Navbar() {
             className="p-2 rounded-lg hover:bg-accent transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              if (navigator.share) {
+                navigator.share({
+                  title: 'Adi Warsa Portfolio',
+                  text: 'Check out my portfolio!',
+                  url: window.location.href,
+                });
+              } else {
+                alert('Sharing is not supported in this browser.');
+              }
+            }}
           >
             <Share2 className="w-4 h-4" />
           </motion.button>

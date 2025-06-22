@@ -80,12 +80,12 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="flex flex-col gap-3 min-[400px]:flex-row">
+            <motion.div variants={itemVariants} className="flex flex-col gap-3 sm:flex-row sm:gap-4 w-full">
               {/* Download CV Button */}
               <a
                 href="#"
                 download
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 h-12 flex items-center justify-center rounded-lg shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 h-12 flex items-center justify-center rounded-lg shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 w-full sm:w-auto"
                 style={{ minWidth: 180 }}
               >
                 <span className="mr-2">Download CV</span>
@@ -94,7 +94,7 @@ export default function Hero() {
               {/* Projects Button */}
               <a
                 href="#projects"
-                className="border border-primary bg-white text-primary font-medium px-8 h-12 flex items-center justify-center rounded-lg shadow hover:bg-primary hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="border border-primary bg-white text-primary font-medium px-8 h-12 flex items-center justify-center rounded-lg shadow hover:bg-primary hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 w-full sm:w-auto"
                 style={{ minWidth: 180 }}
               >
                 <span className="mr-2">View Projects</span>
@@ -104,7 +104,7 @@ export default function Hero() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-12 w-12 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 shadow"
+                className="h-12 w-full sm:w-12 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 shadow"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {

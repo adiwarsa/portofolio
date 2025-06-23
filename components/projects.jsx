@@ -130,11 +130,11 @@ export default function Projects() {
               >
                 <Card className="overflow-hidden bg-card border-border hover:border-primary/20 transition-all duration-300 group">
                   {/* Project Type Badge */}
-                  <div className="p-4 pb-0">
+                  {/* <div className="p-4 pb-0">
                     <Badge variant="secondary" className="text-xs font-medium bg-secondary/50">
                       {project.type}
                     </Badge>
-                  </div>
+                  </div> */}
 
                   {/* Project Image */}
                   <CardContent className="p-4">

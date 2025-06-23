@@ -114,12 +114,10 @@ export default function Navbar() {
           className="md:hidden py-4 bg-background/95 backdrop-blur-md border-t border-border"
         >
           <nav className="container flex flex-col space-y-4">
-            <button className="text-left text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              About
-            </button>
+           
             <div className="flex items-center gap-4">
               <a
-                href="https://github.com"
+                href="https://github.com/adiwarsa"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
@@ -127,10 +125,23 @@ export default function Navbar() {
                 <Github className="w-4 h-4" />
                 GitHub
               </a>
-              <button className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                <Share2 className="w-4 h-4" />
-                Share
-              </button>
+                <button
+                  className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => {
+                    if (navigator.share) {
+                      navigator.share({
+                        title: 'Adi Warsa Portfolio',
+                        text: 'Check out my portfolio!',
+                        url: window.location.href,
+                      });
+                    } else {
+                      alert('Sharing is not supported in this browser.');
+                    }
+                  }}
+                >
+                  <Share2 className="w-4 h-4" />
+                  Share
+                </button>
             </div>
           </nav>
         </motion.div>

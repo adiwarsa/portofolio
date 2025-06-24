@@ -24,8 +24,6 @@ export default function Projects() {
         setLoading(true)
         setError(null)
         
-        console.log('Fetching projects from API...')
-        
         const response = await fetch('https://adiwarsa.yayasan-rohmah.com/api/projects', {
           method: 'GET',
           headers: {
@@ -36,28 +34,14 @@ export default function Projects() {
           mode: 'cors'
         })
 
-        console.log('Response status:', response.status)
-        console.log('Response headers:', response.headers)
-
         if (!response.ok) {
           const errorText = await response.text()
-          console.error('API Error Response:', errorText)
           throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`)
         }
 
         const data = await response.json()
-        console.log('Fetched projects data:', data)
-        console.log('Data type:', typeof data)
-        console.log('Data length:', Array.isArray(data) ? data.length : 'Not an array')
-        console.log('Raw data:', JSON.stringify(data, null, 2))
         setProjects(data)
       } catch (err) {
-        console.error('Error fetching projects:', err)
-        console.error('Error details:', {
-          name: err.name,
-          message: err.message,
-          stack: err.stack
-        })
         setError(err.message)
       } finally {
         setLoading(false)

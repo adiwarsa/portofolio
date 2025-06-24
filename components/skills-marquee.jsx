@@ -16,8 +16,6 @@ export default function SkillsMarquee() {
         setLoading(true)
         setError(null)
         
-        console.log('Fetching skills from API...')
-        
         const response = await fetch('https://adiwarsa.yayasan-rohmah.com/api/skills', {
           method: 'GET',
           headers: {
@@ -28,30 +26,16 @@ export default function SkillsMarquee() {
           mode: 'cors'
         })
 
-        console.log('Response status:', response.status)
-
         if (!response.ok) {
           const errorText = await response.text()
-          console.error('API Error Response:', errorText)
           throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`)
         }
 
         const data = await response.json()
-        console.log('Fetched skills data:', data)
-        console.log('Data type:', typeof data)
-        console.log('Data length:', Array.isArray(data) ? data.length : 'Not an array')
-        console.log('Raw data:', JSON.stringify(data, null, 2))
         setSkills(data)
       } catch (err) {
-        console.error('Error fetching skills:', err)
-        console.error('Error details:', {
-          name: err.name,
-          message: err.message,
-          stack: err.stack
-        })
         setError(err.message)
         // Use fallback data when API fails
-        console.log('Using fallback data due to API error')
         setSkills([
           { name: "JavaScript" },
           { name: "HTML/CSS" },

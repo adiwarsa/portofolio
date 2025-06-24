@@ -70,15 +70,31 @@ export default function ProjectDetailModal({ project, isOpen, onClose }) {
             <div className="p-6 space-y-8">
               {/* Project Image */}
               <div className="relative">
-                <div
-                  className={`aspect-video rounded-xl bg-gradient-to-br ${project.gradient} p-8 flex items-center justify-center relative overflow-hidden`}
-                >
-                  <div className="absolute inset-0 bg-black/20"></div>
-                  <div className="relative z-10 text-white font-bold text-3xl">{project.title}</div>
-                  {/* Decorative elements */}
-                  <div className="absolute top-4 right-4 w-8 h-8 bg-white/30 rounded-full"></div>
-                  <div className="absolute bottom-4 left-4 w-12 h-12 bg-white/20 rounded-full"></div>
-                  <div className="absolute top-1/2 left-8 w-6 h-6 bg-white/25 rounded-full"></div>
+                <div className="aspect-video rounded-xl overflow-hidden relative">
+                  {project.image ? (
+                    <img 
+                      src={`https://adiwarsa.yayasan-rohmah.com/storage/${project.image}`} 
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        // Fallback to gradient if image fails to load
+                        e.target.style.display = 'none'
+                        e.target.nextSibling.style.display = 'flex'
+                      }}
+                    />
+                  ) : null}
+                  <div
+                    className={`w-full h-full bg-gradient-to-br ${project.gradient || 'from-gray-500 to-gray-600'} p-8 flex items-center justify-center relative ${
+                      project.image ? 'hidden' : 'flex'
+                    }`}
+                  >
+                    <div className="absolute inset-0 bg-black/20"></div>
+                    <div className="relative z-10 text-white font-bold text-3xl">{project.title}</div>
+                    {/* Decorative elements */}
+                    <div className="absolute top-4 right-4 w-8 h-8 bg-white/30 rounded-full"></div>
+                    <div className="absolute bottom-4 left-4 w-12 h-12 bg-white/20 rounded-full"></div>
+                    <div className="absolute top-1/2 left-8 w-6 h-6 bg-white/25 rounded-full"></div>
+                  </div>
                 </div>
               </div>
 

@@ -1,10 +1,11 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { motion, useInView } from "framer-motion"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Skeleton } from "@/components/ui/skeleton"
 import { User, Calendar } from "lucide-react"
 import ProjectDetailModal from "./project-detail-modal"
 
@@ -13,65 +14,80 @@ export default function Projects() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [selectedProject, setSelectedProject] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
-  const projects = [
-    {
-      id: 1,
-      title: "Siverlent",
-      type: "website",
-      image: "/placeholder.svg?height=200&width=300",
-      author: "Adi Warsa",
-      date: "22 2025",
-      gradient: "from-purple-500 to-pink-500",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "AI/ML"],
-      features: [
-        "Website for a company that provides software solutions for businesses.",
-      ],
-      status: "Active Development",
-      liveUrl: "https://siverlent.id",
-      githubUrl: "#",
-    },
-    {
-      id: 2,
-      title: "Undangan Online",
-      type: "website",
-      image: "/placeholder.svg?height=200&width=300",
-      author: "Adi Warsa",
-      date: "22 2025",
-      gradient: "from-yellow-500 to-orange-500",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      technologies: ["React", "JavaScript", "CSS3", "Local Storage", "Web APIs"],
-      features: [
-        "Website for a company that provides online invitation services.",
-      ],
-      status: "Completed & Live",
-      liveUrl: "https://unol.siverlent.id",
-      githubUrl: "#",
-    },
-    {
-      id: 3,
-      title: "Softcomp POS",
-      type: "web application",
-      image: "/placeholder.svg?height=200&width=300",
-      author: "Adi Warsa",
-      date: "22 Juni 2025",
-      gradient: "from-blue-500 to-cyan-500",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      technologies: ["Laravel", "Livewire", "PostgreSQL", "Tailwind CSS", "Alpine.js"],
-      features: [
-        "Point of Sale System for a company that provides software solutions for businesses.",
-      ],
-      status: "Completed & Live",
-      liveUrl: "https://softcomp.io",
-      githubUrl: "#",
-    },
-    
-    
-  ]
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setLoading(true)
+        setError(null)
+        
+        console.log('Fetching projects from API...')
+        
+        const response = await fetch('https://adiwarsa.yayasan-rohmah.com/api/projects', {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer Asndaih123ASFahcm331',
+            'Content-Type': 'application/json'
+          },
+          mode: 'cors'
+        })
+
+        console.log('Response status:', response.status)
+        console.log('Response headers:', response.headers)
+
+        if (!response.ok) {
+          const errorText = await response.text()
+          console.error('API Error Response:', errorText)
+          throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`)
+        }
+
+        const data = await response.json()
+        console.log('Fetched projects data:', data)
+        console.log('Data type:', typeof data)
+        console.log('Data length:', Array.isArray(data) ? data.length : 'Not an array')
+        console.log('Raw data:', JSON.stringify(data, null, 2))
+        setProjects(data)
+      } catch (err) {
+        console.error('Error fetching projects:', err)
+        console.error('Error details:', {
+          name: err.name,
+          message: err.message,
+          stack: err.stack
+        })
+        setError(err.message)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProjects()
+  }, [])
+
+  // Skeleton component for project cards
+  const ProjectSkeleton = () => (
+    <Card className="overflow-hidden bg-card border-border">
+      <CardContent className="p-4">
+        <Skeleton className="aspect-video rounded-lg w-full mb-4" />
+        <Skeleton className="h-6 w-3/4 mb-3" />
+        <div className="flex items-center gap-2 mb-4">
+          <Skeleton className="w-6 h-6 rounded-full" />
+          <Skeleton className="h-4 w-20" />
+          <Skeleton className="h-4 w-4" />
+          <div className="flex items-center gap-1">
+            <Skeleton className="w-3 h-3" />
+            <Skeleton className="h-4 w-16" />
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter className="p-4 pt-0">
+        <Skeleton className="w-full h-10 rounded-md" />
+      </CardFooter>
+    </Card>
+  )
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -118,66 +134,104 @@ export default function Projects() {
             PROJECTS
           </motion.h2>
 
-          <motion.div variants={containerVariants} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                variants={itemVariants}
-                whileHover={{
-                  y: -10,
-                  transition: { type: "spring", stiffness: 300, damping: 10 },
-                }}
+          {error && (
+            <motion.div
+              variants={itemVariants}
+              className="text-center py-8"
+            >
+              <p className="text-destructive">Error loading projects: {error}</p>
+              <Button 
+                onClick={() => window.location.reload()} 
+                className="mt-4"
+                variant="outline"
               >
-                <Card className="overflow-hidden bg-card border-border hover:border-primary/20 transition-all duration-300 group">
-                  {/* Project Type Badge */}
-                  {/* <div className="p-4 pb-0">
-                    <Badge variant="secondary" className="text-xs font-medium bg-secondary/50">
-                      {project.type}
-                    </Badge>
-                  </div> */}
+                Try Again
+              </Button>
+            </motion.div>
+          )}
 
-                  {/* Project Image */}
-                  <CardContent className="p-4">
-                    <div
-                      className={`aspect-video rounded-lg bg-gradient-to-br ${project.gradient} p-4 flex items-center justify-center relative overflow-hidden`}
-                    >
-                      <div className="absolute inset-0 bg-black/20"></div>
-                      <div className="relative z-10 text-white font-bold text-lg">{project.title}</div>
-                      {/* Decorative elements */}
-                      <div className="absolute top-2 right-2 w-4 h-4 bg-white/30 rounded-full"></div>
-                      <div className="absolute bottom-2 left-2 w-6 h-6 bg-white/20 rounded-full"></div>
-                    </div>
-
-                    <h3 className="font-semibold text-lg mt-4 mb-3 group-hover:text-primary transition-colors">
-                      {project.title}
-                    </h3>
-
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                      <div className="w-6 h-6 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center">
-                        <User className="w-3 h-3 text-white" />
+          <motion.div variants={containerVariants} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {loading ? (
+              // Show skeleton loading state
+              Array.from({ length: 6 }).map((_, index) => (
+                <motion.div
+                  key={`skeleton-${index}`}
+                  variants={itemVariants}
+                >
+                  <ProjectSkeleton />
+                </motion.div>
+              ))
+            ) : (
+              // Show actual projects
+              projects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  variants={itemVariants}
+                  whileHover={{
+                    y: -10,
+                    transition: { type: "spring", stiffness: 300, damping: 10 },
+                  }}
+                >
+                  <Card className="overflow-hidden bg-card border-border hover:border-primary/20 transition-all duration-300 group">
+                    {/* Project Image */}
+                    <CardContent className="p-4">
+                      <div className="aspect-video rounded-lg overflow-hidden relative">
+                        {project.image ? (
+                          <img 
+                            src={`https://adiwarsa.yayasan-rohmah.com/storage/${project.image}`} 
+                            alt={project.title}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              // Fallback to gradient if image fails to load
+                              e.target.style.display = 'none'
+                              e.target.nextSibling.style.display = 'flex'
+                            }}
+                          />
+                        ) : null}
+                        <div
+                          className={`w-full h-full bg-gradient-to-br ${project.gradient || 'from-gray-500 to-gray-600'} p-4 flex items-center justify-center relative ${
+                            project.image ? 'hidden' : 'flex'
+                          }`}
+                        >
+                          <div className="absolute inset-0 bg-black/20"></div>
+                          <div className="relative z-10 text-white font-bold text-lg">{project.title}</div>
+                          {/* Decorative elements */}
+                          <div className="absolute top-2 right-2 w-4 h-4 bg-white/30 rounded-full"></div>
+                          <div className="absolute bottom-2 left-2 w-6 h-6 bg-white/20 rounded-full"></div>
+                        </div>
                       </div>
-                      <span>{project.author}</span>
-                      <span>•</span>
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
-                        <span>{project.date}</span>
-                      </div>
-                    </div>
-                  </CardContent>
 
-                  <CardFooter className="p-4 pt-0">
-                    <Button
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
-                      onClick={() => handleProjectClick(project)}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      Details
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </motion.div>
-            ))}
+                      <h3 className="font-semibold text-lg mt-4 mb-3 group-hover:text-primary transition-colors">
+                        {project.title}
+                      </h3>
+
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                        <div className="w-6 h-6 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center">
+                          <User className="w-3 h-3 text-white" />
+                        </div>
+                        <span>{project.author || 'Unknown'}</span>
+                        <span>•</span>
+                        <div className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          <span>{project.date || 'Unknown'}</span>
+                        </div>
+                      </div>
+                    </CardContent>
+
+                    <CardFooter className="p-4 pt-0">
+                      <Button
+                        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+                        onClick={() => handleProjectClick(project)}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        Details
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </motion.div>
+              ))
+            )}
           </motion.div>
         </motion.div>
       </section>

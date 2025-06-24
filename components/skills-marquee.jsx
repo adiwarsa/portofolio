@@ -53,21 +53,21 @@ export default function SkillsMarquee() {
         // Use fallback data when API fails
         console.log('Using fallback data due to API error')
         setSkills([
-          { name: "JavaScript", color: "bg-yellow-500 text-black" },
-          { name: "HTML/CSS", color: "bg-pink-500 text-white" },
-          { name: "React.js", color: "bg-blue-600 text-white" },
-          { name: "Next.js", color: "bg-black text-white" },
-          { name: "Node.js", color: "bg-green-600 text-white" },
-          { name: "Express", color: "bg-gray-800 text-white" },
-          { name: "Tailwind CSS", color: "bg-cyan-600 text-white" },
-          { name: "Vue.js", color: "bg-red-600 text-white" },
-          { name: "Laravel", color: "bg-red-600 text-white" },
-          { name: "Livewire", color: "bg-yellow-600 text-white" },
-          { name: "MySQL", color: "bg-red-600 text-white" },
-          { name: "Git", color: "bg-red-600 text-white" },
-          { name: "Figma", color: "bg-purple-600 text-white" },
-          { name: "MongoDB", color: "bg-green-600 text-white" },
-          { name: "PostgreSQL", color: "bg-blue-600 text-white" },
+          { name: "JavaScript" },
+          { name: "HTML/CSS" },
+          { name: "React.js" },
+          { name: "Next.js" },
+          { name: "Node.js" },
+          { name: "Express" },
+          { name: "Tailwind CSS" },
+          { name: "Vue.js" },
+          { name: "Laravel" },
+          { name: "Livewire" },
+          { name: "MySQL" },
+          { name: "Git" },
+          { name: "Figma" },
+          { name: "MongoDB" },
+          { name: "PostgreSQL" },
         ])
       } finally {
         setLoading(false)
@@ -143,7 +143,7 @@ export default function SkillsMarquee() {
                 {duplicatedSkills.map((skill, index) => (
                   <Badge
                     key={`${skill.name}-${index}`}
-                    className={`${skill.color || 'bg-gray-600 text-white'} px-4 py-2 text-sm font-medium rounded-lg border-0 flex-shrink-0 hover:scale-105 transition-transform cursor-pointer`}
+                    className="px-4 py-2 text-sm font-medium rounded-lg border border-foreground/20 bg-transparent text-foreground hover:scale-105 transition-transform cursor-pointer"
                   >
                     {skill.name}
                   </Badge>
@@ -169,7 +169,7 @@ export default function SkillsMarquee() {
                 {duplicatedSkills.reverse().map((skill, index) => (
                   <Badge
                     key={`${skill.name}-reverse-${index}`}
-                    className={`${skill.color || 'bg-gray-600 text-white'} px-4 py-2 text-sm font-medium rounded-lg border-0 flex-shrink-0 hover:scale-105 transition-transform cursor-pointer`}
+                    className="px-4 py-2 text-sm font-medium rounded-lg border border-foreground/20 bg-transparent text-foreground hover:scale-105 transition-transform cursor-pointer"
                   >
                     {skill.name}
                   </Badge>

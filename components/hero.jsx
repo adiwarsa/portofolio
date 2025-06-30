@@ -83,7 +83,7 @@ export default function Hero() {
             <motion.div variants={itemVariants} className="flex flex-col gap-3 sm:flex-row sm:gap-4 w-full">
               {/* Download CV Button */}
               <a
-                href="#"
+                href="/documents/CV - I Gede Adi Warsa Limitha.pdf"
                 download
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 h-12 flex items-center justify-center rounded-lg shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 w-full sm:w-auto"
                 style={{ minWidth: 180 }}

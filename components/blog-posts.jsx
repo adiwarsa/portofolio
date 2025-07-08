@@ -86,8 +86,7 @@ export default function BlogPosts() {
             <motion.div
               key={post.id}
               variants={itemVariants}
-              whileHover={{ y: -10 }}
-              transition={{ type: "spring", stiffness: 300, damping: 10 }}
+              className="hover:-translate-y-2 transition-transform duration-300"
             >
               <Card className="overflow-hidden h-full border border-primary/20 bg-black/50 backdrop-blur-sm">
                 <div className="aspect-[16/9] overflow-hidden">
@@ -122,9 +121,7 @@ export default function BlogPosts() {
         <motion.div variants={itemVariants} className="flex justify-center mt-10">
           <Button
             variant="outline"
-            className="border-primary text-primary hover:bg-primary/10"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="border-primary text-primary hover:bg-primary/10 hover:scale-105 transition-transform duration-200"
           >
             View All Posts <ArrowRight className="ml-2 h-4 w-4" />
           </Button>

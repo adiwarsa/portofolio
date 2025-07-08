@@ -92,37 +92,13 @@ export default function WalkingTechStack() {
             key={`${tech}-${index}`}
             onHoverStart={() => setHoveredIndex(index)}
             onHoverEnd={() => setHoveredIndex(null)}
-            whileHover={{
-              y: -15,
-              scale: 1.1,
-              transition: {
-                type: "spring",
-                stiffness: 400,
-                damping: 10,
-              },
-            }}
-            className="flex-shrink-0 relative"
+            className="flex-shrink-0 relative hover:-translate-y-2 hover:scale-105 transition-all duration-300"
           >
-            <motion.div
-              className="absolute -inset-2 bg-gradient-to-r from-primary/30 via-primary/50 to-primary/30 rounded-xl opacity-0 blur-xl"
-              animate={{
-                opacity: hoveredIndex === index ? 0.6 : 0,
-              }}
-              transition={{ duration: 0.3 }}
-            />
-            <Card className="border border-primary/20 bg-white/10 dark:bg-black/50 backdrop-blur-md overflow-hidden w-32 transition-all duration-300 hover:border-primary/50 hover:bg-white/20 dark:hover:bg-black/70 relative z-10 shadow-lg hover:shadow-xl">
-              <CardContent className="p-4 flex items-center justify-center h-24">
-                <motion.span
-                  className="font-medium text-center"
-                  animate={{
-                    color: hoveredIndex === index ? "hsl(var(--primary))" : "hsl(var(--foreground))",
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {tech}
-                </motion.span>
-              </CardContent>
-            </Card>
+            <div className="px-6 py-3 bg-white/5 dark:bg-black/20 backdrop-blur-sm border border-white/10 dark:border-white/5 rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:bg-white/10 dark:hover:bg-black/30 hover:border-white/20 dark:hover:border-white/10">
+              <span className="font-medium text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-300 whitespace-nowrap">
+                {tech}
+              </span>
+            </div>
           </motion.div>
         ))}
       </motion.div>

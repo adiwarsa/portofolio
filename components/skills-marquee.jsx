@@ -53,21 +53,21 @@ export default function SkillsMarquee() {
         // Use fallback data when API fails
         console.log('Using fallback data due to API error')
         setSkills([
-          { name: "JavaScript", color: "bg-yellow-500 text-black" },
-          { name: "HTML/CSS", color: "bg-pink-500 text-white" },
-          { name: "React.js", color: "bg-blue-600 text-white" },
-          { name: "Next.js", color: "bg-black text-white" },
-          { name: "Node.js", color: "bg-green-600 text-white" },
-          { name: "Express", color: "bg-gray-800 text-white" },
-          { name: "Tailwind CSS", color: "bg-cyan-600 text-white" },
-          { name: "Vue.js", color: "bg-red-600 text-white" },
-          { name: "Laravel", color: "bg-red-600 text-white" },
-          { name: "Livewire", color: "bg-yellow-600 text-white" },
-          { name: "MySQL", color: "bg-red-600 text-white" },
-          { name: "Git", color: "bg-red-600 text-white" },
-          { name: "Figma", color: "bg-purple-600 text-white" },
-          { name: "MongoDB", color: "bg-green-600 text-white" },
-          { name: "PostgreSQL", color: "bg-blue-600 text-white" },
+          { name: "JavaScript" },
+          { name: "HTML/CSS" },
+          { name: "React.js" },
+          { name: "Next.js" },
+          { name: "Node.js" },
+          { name: "Express" },
+          { name: "Tailwind CSS" },
+          { name: "Vue.js" },
+          { name: "Laravel" },
+          { name: "Livewire" },
+          { name: "MySQL" },
+          { name: "Git" },
+          { name: "Figma" },
+          { name: "MongoDB" },
+          { name: "PostgreSQL" },
         ])
       } finally {
         setLoading(false)
@@ -141,12 +141,14 @@ export default function SkillsMarquee() {
                 }}
               >
                 {duplicatedSkills.map((skill, index) => (
-                  <Badge
+                  <div
                     key={`${skill.name}-${index}`}
-                    className={`${skill.color || 'bg-gray-600 text-white'} px-4 py-2 text-sm font-medium rounded-lg border-0 flex-shrink-0 hover:scale-105 transition-transform cursor-pointer`}
+                    className="px-4 py-2 text-sm font-medium rounded-full border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-black/20 backdrop-blur-sm flex-shrink-0 hover:scale-105 hover:bg-white/80 dark:hover:bg-black/40 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md"
                   >
-                    {skill.name}
-                  </Badge>
+                    <span className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-300">
+                      {skill.name}
+                    </span>
+                  </div>
                 ))}
               </motion.div>
             </div>
@@ -167,12 +169,14 @@ export default function SkillsMarquee() {
                 }}
               >
                 {duplicatedSkills.reverse().map((skill, index) => (
-                  <Badge
+                  <div
                     key={`${skill.name}-reverse-${index}`}
-                    className={`${skill.color || 'bg-gray-600 text-white'} px-4 py-2 text-sm font-medium rounded-lg border-0 flex-shrink-0 hover:scale-105 transition-transform cursor-pointer`}
+                    className="px-4 py-2 text-sm font-medium rounded-full border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-black/20 backdrop-blur-sm flex-shrink-0 hover:scale-105 hover:bg-white/80 dark:hover:bg-black/40 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md"
                   >
-                    {skill.name}
-                  </Badge>
+                    <span className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-300">
+                      {skill.name}
+                    </span>
+                  </div>
                 ))}
               </motion.div>
             </div>

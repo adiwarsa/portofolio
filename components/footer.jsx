@@ -56,8 +56,7 @@ export default function Footer() {
                 key={index}
                 href={social.link}
                 aria-label={social.label}
-                className="text-muted-foreground hover:text-primary transition-colors"
-                whileHover={{ scale: 1.2, rotate: 5 }}
+                className="text-muted-foreground hover:text-primary transition-colors hover:scale-120 hover:rotate-5 transition-transform duration-200"
               >
                 <social.icon className="h-5 w-5" />
               </motion.a>

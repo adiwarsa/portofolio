@@ -60,18 +60,14 @@ export default function Navbar() {
             href="https://github.com/adiwarsa"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-lg hover:bg-accent transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="p-2 rounded-lg hover:bg-accent transition-colors hover:scale-105 transition-transform duration-200"
           >
             <Github className="w-4 h-4" />
           </motion.a>
 
           <motion.button
             variants={itemVariants}
-            className="p-2 rounded-lg hover:bg-accent transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="p-2 rounded-lg hover:bg-accent transition-colors hover:scale-105 transition-transform duration-200"
             onClick={() => {
               if (navigator.share) {
                 navigator.share({

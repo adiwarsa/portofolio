@@ -65,8 +65,7 @@ export default function SkillsBadges() {
               <motion.div
                 key={skill.name}
                 variants={itemVariants}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="hover:scale-105 transition-transform duration-200"
               >
                 <Badge
                   className={`${skill.color} px-4 py-2 text-sm font-medium rounded-lg border-0 hover:opacity-90 transition-opacity`}

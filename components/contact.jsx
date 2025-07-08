@@ -76,16 +76,14 @@ export default function Contact() {
                   {contactInfo.map((item, index) => (
                     <motion.div
                       key={index}
-                      className="flex items-center gap-4"
+                      className="flex items-center gap-4 hover:translate-x-1 transition-transform duration-200"
                       variants={itemVariants}
-                      whileHover={{ x: 5 }}
                     >
-                      <motion.div
-                        className="rounded-full bg-primary/10 p-3"
-                        whileHover={{ scale: 1.1, backgroundColor: "rgba(124, 58, 237, 0.2)" }}
+                      <div
+                        className="rounded-full bg-primary/10 p-3 hover:scale-110 hover:bg-primary/20 transition-all duration-200"
                       >
                         <item.icon className="h-5 w-5 text-primary" />
-                      </motion.div>
+                      </div>
                       <div>
                         <p className="font-medium">{item.label}</p>
                         {item.link ? (
@@ -114,9 +112,7 @@ export default function Contact() {
                         href={social.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 p-3 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-2 p-3 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors hover:scale-105 transition-transform duration-200"
                       >
                         <social.icon className="h-5 w-5 text-primary" />
                         <span className="text-sm font-medium">{social.label}</span>
@@ -126,8 +122,7 @@ export default function Contact() {
 
                   <motion.div
                     variants={itemVariants}
-                    className="p-4 bg-primary/5 rounded-lg border border-primary/10"
-                    whileHover={{ scale: 1.02 }}
+                    className="p-4 bg-primary/5 rounded-lg border border-primary/10 hover:scale-105 transition-transform duration-200"
                   >
                     <p className="text-sm text-muted-foreground italic">
                       "I'm always open to discussing new projects, creative ideas or opportunities to be part of your

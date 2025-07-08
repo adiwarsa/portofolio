@@ -83,8 +83,8 @@ export default function Hero() {
             <motion.div variants={itemVariants} className="flex flex-col gap-3 sm:flex-row sm:gap-4 w-full">
               {/* Download CV Button */}
               <a
-                href="#"
-                download
+                href="/CV - I Gede Adi Warsa Limitha.pdf"
+                download="CV - I Gede Adi Warsa Limitha.pdf"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 h-12 flex items-center justify-center rounded-lg shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 w-full sm:w-auto"
                 style={{ minWidth: 180 }}
               >
@@ -104,9 +104,7 @@ export default function Hero() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-12 w-full sm:w-12 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 shadow"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+                className="h-12 w-full sm:w-12 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 shadow hover:scale-110 transition-transform duration-200"
                 onClick={() => {
                   if (navigator.share) {
                     navigator.share({

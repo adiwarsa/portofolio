@@ -218,7 +218,7 @@ export default function Projects() {
                         {project.title}
                       </h3>
 
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
                         <div className="w-6 h-6 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center">
                           <User className="w-3 h-3 text-white" />
                         </div>
@@ -229,6 +229,31 @@ export default function Projects() {
                           <span>{project.date || 'Unknown'}</span>
                         </div>
                       </div>
+
+                      {/* Technologies */}
+                      {project.technologies && project.technologies.length > 0 && (
+                        <div className="mb-4">
+                          <div className="flex flex-wrap gap-1">
+                            {project.technologies.slice(0, 3).map((tech, index) => (
+                              <Badge 
+                                key={index} 
+                                variant="secondary" 
+                                className="text-xs px-2 py-1 bg-secondary/50 hover:bg-secondary/70 transition-colors"
+                              >
+                                {tech}
+                              </Badge>
+                            ))}
+                            {project.technologies.length > 3 && (
+                              <Badge 
+                                variant="outline" 
+                                className="text-xs px-2 py-1 text-muted-foreground"
+                              >
+                                +{project.technologies.length - 3} more
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                      )}
                     </CardContent>
 
                     <CardFooter className="p-4 pt-0">

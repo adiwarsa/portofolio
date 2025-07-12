@@ -34,8 +34,7 @@ export default function Projects() {
           mode: 'cors'
         })
 
-        console.log('Response status:', response.status)
-        console.log('Response headers:', response.headers)
+       
 
         if (!response.ok) {
           const errorText = await response.text()
@@ -47,7 +46,7 @@ export default function Projects() {
         
         // Set the projects from API response
         setProjects(data.data || data)
-        console.log('API Response:', data)
+
         
       } catch (err) {
         console.error('Error fetching projects:', err)

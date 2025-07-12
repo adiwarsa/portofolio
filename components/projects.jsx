@@ -23,12 +23,7 @@ export default function Projects() {
       try {
         setLoading(true)
         setError(null)
-        
-        console.log('Fetching projects from API...')
-        
-        // For testing, use dummy data instead of API call
-        // Uncomment the API call when ready to use real data
-        /*
+
         const response = await fetch('https://adiwarsa.yayasan-rohmah.com/api/projects', {
           method: 'GET',
           headers: {
@@ -49,14 +44,10 @@ export default function Projects() {
         }
 
         const data = await response.json()
-        console.log('Fetched projects data:', data)
-        console.log('Data type:', typeof data)
-        console.log('Data length:', Array.isArray(data) ? data.length : 'Not an array')
-        console.log('Raw data:', JSON.stringify(data, null, 2))
+        
         setProjects(data.data || data) // Handle both API response formats
-        */
+        
 
-        // Dummy data for testing - replace with actual API call above
         const dummyProjects = [
           {
             id: 1,
